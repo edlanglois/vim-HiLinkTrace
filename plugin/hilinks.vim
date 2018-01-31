@@ -41,20 +41,23 @@ set cpo&vim
 let s:HLTmode       = 0
 
 " ---------------------------------------------------------------------
+"  Options: {{{1
+if !exists("g:hilinks_fmtwidth")
+ let g:hilinks_fmtwidth = 35
+endif
+if !exists("g:hilinks_map")
+  let g:hilinks_map = 1
+endif
+
+" ---------------------------------------------------------------------
 " Public Interface: {{{1
-if !hasmapto('<Plug>HiLinkTrace')
+if !hasmapto('<Plug>HiLinkTrace') && g:hilinks_map
   map <s-F10>  <Leader>hlt
   map <unique> <Leader>hlt <Plug>HiLinkTrace
 endif
 map <script> <Plug>HiLinkTrace  :call <SID>HiLinkTrace(0)<CR>
 com! -bang  HLT                 call s:HiLinkTrace(<bang>0)
 com!        HLTm                call s:HiLinkTrace(1)
-
-" ---------------------------------------------------------------------
-"  Options: {{{1
-if !exists("g:hilinks_fmtwidth")
- let g:hilinks_fmtwidth= 35
-endif
 
 " ---------------------------------------------------------------------
 " HiLinkTrace: this function traces the highlighting group names {{{1
